@@ -4,7 +4,7 @@ import { AdminSidebarRoutes } from "../../routes/admin.routes";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items: MenuProps["items"] = AdminSidebarRoutes;
+
 
 const MainLayout = () => {
   const {
@@ -30,7 +30,7 @@ const MainLayout = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={items}
+          items={AdminSidebarRoutes}
         />
       </Sider>
       <Layout>
