@@ -1,5 +1,6 @@
 
 import { Layout, Menu, MenuProps, theme } from "antd";
+import { Outlet } from "react-router-dom";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -35,7 +36,7 @@ const MainLayout = () => {
           console.log(collapsed, type);
         }}
       >
-        <div style={{color:'white',fontSize:'1rem', padding:"0.8rem"}}>
+        <div style={{color:'white',fontSize:'1.2rem', padding:"0.8rem"}}>
           <h3>Ph Uni</h3>
         </div>
         <Menu
@@ -57,6 +58,7 @@ const MainLayout = () => {
             }}
           >
            <h1>Hello</h1>
+           <Outlet/>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
