@@ -4,8 +4,8 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateStudent from "../pages/admin/CreateStudent";
+
+import { AdminRoutes } from "./admin.routes";
 
 export const router = createBrowserRouter([
   {
@@ -25,16 +25,17 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: <App />,
-    children: [
-      {
-        path: "dashboard",
-        element: <AdminDashboard />,
-      },
-      {
-        path: "create-student",
-        element: <CreateStudent />,
-      },
-    ],
+    children: AdminRoutes,
+  },
+  {
+    path: "/faculty",
+    element: <App />,
+    children: AdminRoutes,
+  },
+  {
+    path: "/student",
+    element: <App />,
+    children: AdminRoutes,
   },
   {
     path: "/login",

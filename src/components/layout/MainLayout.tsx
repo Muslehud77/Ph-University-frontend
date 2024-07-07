@@ -1,31 +1,18 @@
-
 import { Layout, Menu, MenuProps, theme } from "antd";
 import { Outlet } from "react-router-dom";
-
+import { AdminSidebarRoutes } from "../../routes/admin.routes";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items : MenuProps['items'] = [
-  { key: "1", label: "Dashboard" },
-  { key: "2", label: "Profile" },
-  {
-    key: "3",
-    label: "User Management",
-    children: [
-      { key: "11", label: "Create Admin" },
-      { key: "21", label: "Create Student" },
-    ],
-  },
-];
+const items: MenuProps["items"] = AdminSidebarRoutes;
 
 const MainLayout = () => {
-
-     const {
-       token: { colorBgContainer, borderRadiusLG },
-     } = theme.useToken();
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
-    <Layout style={{height:'100vh'}}>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -36,7 +23,7 @@ const MainLayout = () => {
           console.log(collapsed, type);
         }}
       >
-        <div style={{color:'white',fontSize:'1.2rem', padding:"0.8rem"}}>
+        <div style={{ color: "white", fontSize: "1.2rem", padding: "0.8rem" }}>
           <h3>Ph Uni</h3>
         </div>
         <Menu
@@ -57,8 +44,8 @@ const MainLayout = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-           <h1>Hello</h1>
-           <Outlet/>
+            <h1>Hello</h1>
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
