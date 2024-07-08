@@ -1,4 +1,4 @@
-import { Layout, Menu, MenuProps, theme } from "antd";
+import { Layout, Menu, theme } from "antd";
 import { Outlet } from "react-router-dom";
 import { AdminSidebarRoutes } from "../../routes/admin.routes";
 
