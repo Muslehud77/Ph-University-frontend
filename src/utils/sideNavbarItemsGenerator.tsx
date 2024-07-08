@@ -4,7 +4,7 @@ import { TPath, TSideBar } from '../types';
 
 
 
-export const sideNavbarRoutesGenerator = (paths: TPath[]) => {
+export const sideNavbarItemsGenerator = (paths: TPath[]) => {
   const sidebarRoutes = paths.reduce((acc: TSideBar[], item) => {
     if (item.name && item.path) {
       acc.push({
@@ -21,7 +21,7 @@ export const sideNavbarRoutesGenerator = (paths: TPath[]) => {
             key: child.name,
             label: <NavLink to={child.path!}>{child.name}</NavLink>,
           };
-        } ),
+        }),
       } as TSideBar);
     }
     return acc;
