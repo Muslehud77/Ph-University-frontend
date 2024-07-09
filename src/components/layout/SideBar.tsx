@@ -1,41 +1,41 @@
-
 import { Layout, Menu } from "antd";
 
 import { AdminSidebarItems } from "../../routes/admin.routes";
 import { FacultySidebarItems } from "../../routes/faculty.routes";
 import { StudentSidebarItems } from "../../routes/student.routes";
+import { useAppSelector } from "../../redux/hooks/reduxHooks";
+import {
+  selectAuthToken,
+  selectAuthUser,
+} from "../../redux/features/auth/authSlice";
 
 const { Sider } = Layout;
 
 const userRoles = {
-    ADMIN: 'admin',
-    FACULTY : 'faculty',
-    STUDENT : 'student'
-}
-
+  ADMIN: "admin",
+  FACULTY: "faculty",
+  STUDENT: "student",
+};
 
 const SideBar = () => {
+  const user = useAppSelector(selectAuthUser);
 
-    const role = userRoles.ADMIN
+  let sidebarItems;
 
-    let sidebarItems;
+  switch (user!.role) {
+    case userRoles.ADMIN:
+      sidebarItems = AdminSidebarItems;
+      break;
+    case userRoles.FACULTY:
+      sidebarItems = FacultySidebarItems;
+      break;
+    case userRoles.STUDENT:
+      sidebarItems = StudentSidebarItems;
+      break;
 
-
-    switch (role) {
-        case userRoles.ADMIN:
-            sidebarItems = AdminSidebarItems
-            break;
-        case userRoles.FACULTY:
-            sidebarItems = FacultySidebarItems
-            break;
-        case userRoles.STUDENT:
-            sidebarItems = StudentSidebarItems
-            break;
-    
-        default:
-            break;
-    }
-
+    default:
+      break;
+  }
 
   return (
     <Sider

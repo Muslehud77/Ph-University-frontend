@@ -1,19 +1,17 @@
 import { Button } from "antd";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks/reduxHooks";
-import { setUser } from "../redux/features/auth/authSlice";
+import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 
-
-type TLoginData = {
-  userId:string,password:string
-}
 
 const Login = () => {
-const dispatch = useAppDispatch()
-
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       userId: "A-0001",
@@ -21,21 +19,26 @@ const dispatch = useAppDispatch()
     },
   });
 
-  const [login,{error,isLoading}] = useLoginMutation()
- 
+  const [login, { isLoading }] = useLoginMutation();
 
-  const onSubmit = async (formData: TLoginData) => {
+  const onSubmit = async (formData: FieldValues) => {
+    const loading = toast.loading("logging in");
     const userInfo = {
       id: formData.userId,
       password: formData.password,
     };
 
-    const res = await login(userInfo).unwrap();
+    try {
+      const res = await login(userInfo).unwrap();
 
-    const user = verifyToken(res.data.accessToken)
-   
-    
-    dispatch(setUser({user,token:res.data.accessToken}))
+      const user = verifyToken(res.data.accessToken) as TUser;
+
+      navigate(`/${user?.role}/dashboard`);
+      toast.success(res.message, { id: loading });
+      dispatch(setUser({ user, token: res.data.accessToken }));
+    } catch (err:{data: {message:string}}) {
+      toast.error(err?.data?.message, { id: loading });
+    }
   };
 
   return (
@@ -48,7 +51,9 @@ const dispatch = useAppDispatch()
         <label htmlFor="password">Password: </label>
         <input type="text" id="password" {...register("password")} />
       </div>
-      <Button disabled={isLoading} htmlType="submit">Login</Button>
+      <Button disabled={isLoading} htmlType="submit">
+        Login
+      </Button>
     </form>
   );
 };
