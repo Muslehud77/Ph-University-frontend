@@ -1,5 +1,5 @@
 import { Button, Row } from "antd";
-import { FieldValues, useForm, useFormContext } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks/reduxHooks";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
@@ -38,7 +38,7 @@ const Login = () => {
       navigate(`/${user?.role}/dashboard`);
       toast.success(res.message, { id: loading });
       dispatch(setUser({ user, token: res.data.accessToken }));
-    } catch (err: {data: {message:string}}) {
+    } catch (err: any) {
 
       toast.error(err?.data?.message, { id: loading });
     }
