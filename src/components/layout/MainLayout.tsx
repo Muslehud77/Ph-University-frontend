@@ -22,7 +22,7 @@ const MainLayout = () => {
   } = theme.useToken();
 
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout >
       <SideBar/>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} >

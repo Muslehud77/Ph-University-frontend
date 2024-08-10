@@ -47,6 +47,7 @@ const SideBar = () => {
       onCollapse={(collapsed, type) => {
         console.log(collapsed, type);
       }}
+      style={{ height: "100vh", position: "sticky", top: "0", left: "0" }}
     >
       <div style={{ color: "white", fontSize: "1.2rem", padding: "0.8rem" }}>
         <h3>Ph Uni</h3>
