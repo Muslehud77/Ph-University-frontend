@@ -1,20 +1,23 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
-import PHInput from "../../../components/form/PHInput";
+
 import { Button, Col, Flex } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
 import { monthOptions } from "../../../constants/global";
 import { codeOptions, yearOptions } from "../../../constants/semester";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+
 import { createAcademicSemesterSchema } from "../../../Schema/academicManagement.schema";
-
-
+import { useCreateAcademicSemestersMutation } from "../../../redux/features/admin/academicManagement.api";
+import { toast } from "sonner";
+import { useToastPromise } from "../../../hooks/useToastPromise";
 
 const CreateAcademicSemester = () => {
-  const onSubmit : SubmitHandler<FieldValues> = (data)=>{
+  const [addAcademicSemester, { data }] = useCreateAcademicSemestersMutation();
+  const { toastPromise } = useToastPromise();
 
-    const name = codeOptions[Number(data.code)-1]?.label
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const name = codeOptions[Number(data.code) - 1]?.label;
 
     const academicSemesterData = {
       name,
@@ -22,11 +25,11 @@ const CreateAcademicSemester = () => {
       year: data.year,
       startMonth: data.startMonth,
       endMonth: data.endMonth,
-
     };
-    console.log(academicSemesterData);
-  }
 
+    const res = await toastPromise(addAcademicSemester, academicSemesterData);
+    console.log(res);
+  };
 
   return (
     <Flex justify="center" align="center">
