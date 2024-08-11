@@ -4,21 +4,27 @@ import { FieldValues, FormProvider, SubmitHandler, useForm } from "react-hook-fo
 
 type TFormConfig = {
   defaultValues?: Record<string, unknown>;
+  resolver?: any 
 };
 
 type TPHForm = {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
-  defaultValues? : Record<string,unknown>
+  defaultValues?: Record<string, unknown>;
+  resolver?: any;
 };
 
-const PHForm = ({ onSubmit, children, defaultValues }: TPHForm) => {
+const PHForm = ({ onSubmit, children, defaultValues,resolver }: TPHForm) => {
 
     const formConfig : TFormConfig = {};
 
     if(defaultValues){
         formConfig['defaultValues'] = defaultValues
     }
+    if(resolver){
+        formConfig["resolver"] = resolver;
+    }
+
 
   const methods = useForm(formConfig);
 

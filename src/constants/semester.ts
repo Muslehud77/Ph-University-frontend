@@ -16,6 +16,6 @@ export const codeOptions = [
 const currentYear = new Date().getFullYear();
 
 export const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
-  value: currentYear + number,
-  label: currentYear + number,
+  value: (currentYear + number).toString(),
+  label: (currentYear + number).toString(),
 }));

@@ -5,6 +5,9 @@ import { Button, Col, Flex } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
 import { monthOptions } from "../../../constants/global";
 import { codeOptions, yearOptions } from "../../../constants/semester";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { createAcademicSemesterSchema } from "../../../Schema/academicManagement.schema";
 
 
 
@@ -23,10 +26,15 @@ const CreateAcademicSemester = () => {
     };
     console.log(academicSemesterData);
   }
+
+
   return (
     <Flex justify="center" align="center">
       <Col span={6}>
-        <PHForm onSubmit={onSubmit}>
+        <PHForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(createAcademicSemesterSchema)}
+        >
           <PHSelect label="Name" name="code" options={codeOptions} />
           <PHSelect label="Year" name="year" options={yearOptions} />
           <PHSelect
