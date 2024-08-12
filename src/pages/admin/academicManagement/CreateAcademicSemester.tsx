@@ -13,7 +13,7 @@ import { useCreateAcademicSemestersMutation } from "../../../redux/features/admi
 import { useToastPromise } from "../../../hooks/useToastPromise";
 
 const CreateAcademicSemester = () => {
-  const [addAcademicSemester, { data }] = useCreateAcademicSemestersMutation();
+  const [addAcademicSemester] = useCreateAcademicSemestersMutation();
   const { toastPromise } = useToastPromise();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {

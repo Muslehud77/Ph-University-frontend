@@ -35,7 +35,7 @@ const toastPromise: TToastPromise = async (
             if (responseData.error) {
               throw new Error(responseData.error.data.message);
             }
-            return successMessage || responseData.data.message || "Success";
+            return successMessage || responseData?.data?.message || "Success";
           }
        
         },

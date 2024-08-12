@@ -1,3 +1,4 @@
+import { TData } from "../../../types/global";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
@@ -8,8 +9,12 @@ const academicManagementApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       transformResponse:(response)=>{
-        console.log("inside redux")
-        return response
+        const data = response as unknown as TData
+      
+        return {
+            data:data.data,
+            meta:data.meta
+        }
       }
     }),
     createAcademicSemesters: builder.mutation({
