@@ -1,4 +1,5 @@
-import { TData } from "../../../types/global";
+import { TResponseRedux } from "../../../types/global.type";
+import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
@@ -8,23 +9,22 @@ const academicManagementApi = baseApi.injectEndpoints({
         url: "/academic-semesters",
         method: "GET",
       }),
-      transformResponse:(response)=>{
-        const data = response as unknown as TData
-      
+      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
         return {
-            data:data.data,
-            meta:data.meta
-        }
-      }
+          data: response.data,
+          meta: response.meta,
+        };
+      },
     }),
     createAcademicSemesters: builder.mutation({
       query: (data) => ({
         url: "/academic-semesters/create-semester",
         method: "POST",
-        body: data
+        body: data,
       }),
     }),
   }),
 });
 
-export const {useGetAllSemestersQuery,useCreateAcademicSemestersMutation} = academicManagementApi
+export const { useGetAllSemestersQuery, useCreateAcademicSemestersMutation } =
+  academicManagementApi;
