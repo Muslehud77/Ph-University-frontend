@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { createAcademicSemesterSchema } from "../../../Schema/academicManagement.schema";
 import { useCreateAcademicSemestersMutation } from "../../../redux/features/admin/academicManagement.api";
-import { toast } from "sonner";
+
 import { useToastPromise } from "../../../hooks/useToastPromise";
 
 const CreateAcademicSemester = () => {
@@ -27,7 +27,7 @@ const CreateAcademicSemester = () => {
       endMonth: data.endMonth,
     };
 
-    const res = await toastPromise(addAcademicSemester, academicSemesterData);
+    const res = await toastPromise(addAcademicSemester, academicSemesterData,"Creating a semester...");
     console.log(res);
   };
 

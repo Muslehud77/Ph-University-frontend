@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { TResponse } from "../types/global";
 
 
-type TToastPromise = ( promise: (arg: Record<string, unknown>) => Promise<unknown>,
+type TToastPromise = (
+  promise: (arg: Record<string, unknown>) => Promise<TResponse | unknown>,
   payload: Record<string, unknown>,
   loadingMessage?: string,
   successMessage?: string,
-  errorMessage?: string,) => Promise<unknown>
+  errorMessage?: string
+) => Promise<TResponse | unknown>;
 
 
 
 export const useToastPromise = ()=>{
 
-const [result,setResult] = useState<Record<string,unknown>>({})
+const [result,setResult] = useState<TResponse>({})
 
 const toastPromise: TToastPromise = async (
   promise,
@@ -22,25 +25,27 @@ const toastPromise: TToastPromise = async (
   errorMessage
 ) => {
  try {
-      toast.promise(
-        promise(payload),  
-        {
-          loading: loadingMessage || "Loading...",
-          success: (data: any) => {
-            setResult(data);
-            if (data?.error) {
-              throw new Error(data.error.data.message);
+      toast.promise(promise(payload), {
+        loading: loadingMessage || "Loading...",
+        success: (data: TResponse | unknown) => {
+       
+          if (typeof data === "object") {
+            const responseData = data as TResponse;
+            setResult(responseData);
+            if (responseData.error) {
+              throw new Error(responseData.error.data.message);
             }
-            return successMessage || data.data.message || "Success";
-          },
-          error: (error: any) => {
-            return errorMessage || error.message || "Something went wrong.";
-          },
-        }
-      );
+            return successMessage || responseData.data.message || "Success";
+          }
+       
+        },
+        error: (error: { message: string }) => {
+          return errorMessage || error.message || "Something went wrong.";
+        },
+      });
       return result
     } catch (error) {
-      // Handle any additional errors here if needed
+      return result;
     }
   }
 return { toastPromise };
