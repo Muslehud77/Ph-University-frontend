@@ -32,3 +32,5 @@ export type TResponse<T> = {
 };
 
 export type TResponseRedux<T> = TData<T> & BaseQueryApi
+
+export type TQueryParams = { name: string; value: string | number }[];

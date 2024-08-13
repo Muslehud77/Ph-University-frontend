@@ -5,7 +5,7 @@ import { FacultySidebarItems } from "../../routes/faculty.routes";
 import { StudentSidebarItems } from "../../routes/student.routes";
 import { useAppSelector } from "../../redux/hooks/reduxHooks";
 import {
-  selectAuthToken,
+
   selectAuthUser,
 } from "../../redux/features/auth/authSlice";
 
@@ -41,12 +41,12 @@ const SideBar = () => {
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
+      // onBreakpoint={(broken) => {
+      //   console.log(broken);
+      // }}
+      // onCollapse={(collapsed, type) => {
+      //   console.log(collapsed, type);
+      // }}
       style={{ height: "100vh", position: "sticky", top: "0", left: "0" }}
     >
       <div style={{ color: "white", fontSize: "1.2rem", padding: "0.8rem" }}>

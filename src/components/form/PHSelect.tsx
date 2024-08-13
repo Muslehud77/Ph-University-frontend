@@ -5,11 +5,17 @@ type PHSelectProps = {
   label: string;
   name: string;
   options: { value: string|number; label: string|number; disabled?: boolean }[];
-  defaultValue? : string
+  defaultValue? : string;
+  loading?:boolean
 };
 
-const PHSelect = ({ label, name, options, defaultValue }: PHSelectProps) => {
- 
+const PHSelect = ({
+  label,
+  name,
+  options,
+  defaultValue,
+  loading,
+}: PHSelectProps) => {
   return (
     <Controller
       name={name}
@@ -20,8 +26,9 @@ const PHSelect = ({ label, name, options, defaultValue }: PHSelectProps) => {
             defaultValue={defaultValue}
             style={{ width: "100%" }}
             options={options}
+            loading={loading}
           />
-          {error && <small style={{color:"red"}}>{error.message}</small>}
+          {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>
       )}
     />

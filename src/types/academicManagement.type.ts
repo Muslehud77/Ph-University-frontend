@@ -20,10 +20,20 @@ export type TAcademicSemesterCodeMapper = {
 };
 
 export type TAcademicSemester = {
-    _id:string;
+  _id: string;
   name: TAcademicSemesterName;
   year: string;
   code: TAcademicSemesterCode;
   startMonth: TMonth;
   endMonth: TMonth;
+};
+
+export type TAcademicDepartment = {
+  _id: string;
+  name: string;
+  academicFaculty: string;
+};
+export type TAcademicFaculty = {
+  _id: string;
+  name: string;
 };
