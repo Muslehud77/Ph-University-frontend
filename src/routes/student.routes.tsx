@@ -1,8 +1,7 @@
-
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateAdmin from "../pages/admin/CreateAdmin";
-import CreateFaculty from "../pages/admin/CreateFaculty";
-import CreateStudent from "../pages/admin/CreateStudent";
+import CreateAdmin from "../pages/admin/userManagement.tsx/CreateAdmin";
+import CreateFaculty from "../pages/admin/userManagement.tsx/CreateFaculty";
+import CreateStudent from "../pages/admin/userManagement.tsx/CreateStudent";
 import { generateRoutes } from "../utils/routesGenerator";
 import { sideNavbarItemsGenerator } from "../utils/sideNavbarItemsGenerator";
 
