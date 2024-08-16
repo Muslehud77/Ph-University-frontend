@@ -14,7 +14,7 @@ import { sideNavbarItemsGenerator } from "../utils/sideNavbarItemsGenerator";
 const adminPaths = [
   {
     name: "Dashboard",
-    path: "dashboard",
+    path: "/admin/dashboard",
     element: <AdminDashboard />,
   },
   {
@@ -22,32 +22,32 @@ const adminPaths = [
     children: [
       {
         name: "Academic Semester",
-        path: "academic-semester",
+        path: "/admin/academic-semester",
         element: <AcademicSemester />,
       },
       {
         name: "Create A. Semester",
-        path: "create-academic-semester",
+        path: "/admin/create-academic-semester",
         element: <CreateAcademicSemester />,
       },
       {
         name: "Academic Faculty",
-        path: "academic-faculty",
+        path: "/admin/academic-faculty",
         element: <AcademicFaculty />,
       },
       {
         name: "Create A. Faculty",
-        path: "create-academic-faculty",
+        path: "/admin/create-academic-faculty",
         element: <CreateAcademicFaculty />,
       },
       {
         name: "Academic Department",
-        path: "academic-department",
+        path: "/admin/academic-department",
         element: <AcademicDepartment />,
       },
       {
         name: "Create A. Department",
-        path: "create-academic-department",
+        path: "/admin/create-academic-department",
         element: <CreateAcademicDepartment />,
       },
     ],
@@ -57,17 +57,17 @@ const adminPaths = [
     children: [
       {
         name: "Create Student",
-        path: "create-student",
+        path: "/admin/create-student",
         element: <CreateStudent />,
       },
       {
         name: "Create Admin",
-        path: "create-admin",
+        path: "/admin/create-admin",
         element: <CreateAdmin />,
       },
       {
         name: "Create Faculty",
-        path: "create-faculty",
+        path: "/admin/create-faculty",
         element: <CreateFaculty />,
       },
     ],
