@@ -2,11 +2,12 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { TResponse } from "../types/global.type";
 
+
 type TToastPromise = (
   promise: (
     arg: Record<string, unknown>
   ) => Promise<TResponse<Record<string, unknown>[]> | unknown>,
-  payload: Record<string, unknown>,
+  payload: Record<string, unknown> | FormData ,
   loadingMessage?: string,
   successMessage?: string,
   errorMessage?: string
@@ -23,7 +24,7 @@ export const useToastPromise = () => {
     errorMessage
   ) => {
     try {
-      toast.promise(promise(payload), {
+      toast.promise(promise(payload as Record<string, unknown>), {
         loading: loadingMessage || "Loading...",
         success: (data: TResponse<Record<string, unknown>[]> | unknown) => {
           if (typeof data === "object") {

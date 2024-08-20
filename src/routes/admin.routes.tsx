@@ -5,6 +5,7 @@ import CreateAcademicDepartment from "../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from "../pages/admin/academicManagement/CreateAcademicFaculty";
 import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcademicSemester";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AllStudents from "../pages/admin/userManagement.tsx/AllStudents";
 import CreateAdmin from "../pages/admin/userManagement.tsx/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement.tsx/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement.tsx/CreateStudent";
@@ -55,6 +56,11 @@ const adminPaths = [
   {
     name: "User Management",
     children: [
+      {
+        name: "All Students",
+        path: "/admin/students",
+        element: <AllStudents />,
+      },
       {
         name: "Create Student",
         path: "/admin/create-student",

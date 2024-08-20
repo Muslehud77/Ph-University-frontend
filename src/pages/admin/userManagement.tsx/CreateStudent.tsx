@@ -8,6 +8,7 @@ import PHDatePicker from "../../../components/form/PHDatePicker";
 import { useGetAllAcademicDepartmentsQuery, useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { TOptions } from "../../../types/global.type";
 import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import { useToastPromise } from "../../../hooks/useToastPromise";
 
 
  const defaultValues = {
@@ -52,9 +53,9 @@ import { useCreateStudentMutation } from "../../../redux/features/admin/userMana
 
 const CreateStudent = () => {
 
-  const [addStudent,{data,error}] = useCreateStudentMutation()
-
-  console.log({ data, error });
+  const [addStudent] = useCreateStudentMutation()
+  const { toastPromise } = useToastPromise();
+ 
 
    const {
      data: departmentData,
@@ -85,9 +86,9 @@ const CreateStudent = () => {
    );
   }
 
-  const onSubmit : SubmitHandler<FieldValues> = (data)=>{
+  const onSubmit : SubmitHandler<FieldValues> = async (data)=>{
 
-    console.log(data)
+    // console.log(data)
 
     const studentData = {
       password: "student123",
@@ -98,9 +99,11 @@ const CreateStudent = () => {
     
     formData.append("data", JSON.stringify(studentData));
     formData.append("file",data.image)
+
+   await toastPromise(addStudent, formData,"Creating student...");
     addStudent(formData)
 
-    console.log(Object.fromEntries(formData))
+    // console.log(Object.fromEntries(formData))
   }
 
 

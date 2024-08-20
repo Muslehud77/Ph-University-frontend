@@ -1,5 +1,10 @@
-import { TQueryParams, TResponseRedux } from "../../../types/global.type";
-import { TAcademicDepartment, TAcademicFaculty, TAcademicSemester } from "../../../types/academicManagement.type";
+import {
+  TQueryParams,
+  TResponseRedux,
+  TAcademicDepartment,
+  TAcademicFaculty,
+  TAcademicSemester,
+} from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 
