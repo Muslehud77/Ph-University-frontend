@@ -10,7 +10,7 @@ import { baseApi } from "../../api/baseApi";
 const academicManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllSemesters: builder.query({
-      query: (args: TQueryParams) => {
+      query: (args: TQueryParams | undefined) => {
         const params = new URLSearchParams();
 
         if (args?.length) {
@@ -33,7 +33,7 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
     }),
     getAllAcademicDepartments: builder.query({
-      query: (args: TQueryParams) => {
+      query: (args: TQueryParams | undefined) => {
         const params = new URLSearchParams();
 
         if (args?.length) {
@@ -56,7 +56,7 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
     }),
     getAllAcademicFaculties: builder.query({
-      query: (args: TQueryParams) => {
+      query: (args: TQueryParams | undefined) => {
         const params = new URLSearchParams();
 
         if (args?.length) {

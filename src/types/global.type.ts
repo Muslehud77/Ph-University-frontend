@@ -34,3 +34,9 @@ export type TResponse<T> = {
 export type TResponseRedux<T> = TData<T> & BaseQueryApi
 
 export type TQueryParams = { name: string; value: string | number }[];
+
+export type TOptions = {
+  value: string | number;
+  label: string | number;
+  disabled?: boolean;
+}[];
