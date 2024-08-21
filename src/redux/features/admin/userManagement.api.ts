@@ -1,5 +1,5 @@
 
-import { TQueryParams, TResponseRedux, TStudent } from "../../../types";
+import { TFaculty, TQueryParams, TResponseRedux, TStudent } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const userManagementApi = baseApi.injectEndpoints({
@@ -26,6 +26,55 @@ const userManagementApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+      providesTags: ["students"],
+    }),
+    getAllAdmins: builder.query({
+      query: (args: TQueryParams) => {
+        const params = new URLSearchParams();
+
+        if (args?.length) {
+          args.map((arg) =>
+            params.append(arg.name.toString(), arg.value.toString())
+          );
+        }
+
+        return {
+          url: "/admins",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TStudent[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["admins"],
+    }),
+    getAllFaculties: builder.query({
+      query: (args: TQueryParams) => {
+        const params = new URLSearchParams();
+
+        if (args?.length) {
+          args.map((arg) =>
+            params.append(arg.name.toString(), arg.value.toString())
+          );
+        }
+
+        return {
+          url: "/faculties",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TFaculty[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["faculties"],
     }),
     getSingleStudent: builder.query({
       query: (_id) => {
@@ -48,6 +97,7 @@ const userManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["students"],
     }),
     createAdmin: builder.mutation({
       query: (data) => ({
@@ -55,6 +105,7 @@ const userManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["admins"],
     }),
     createFaculty: builder.mutation({
       query: (data) => ({
@@ -62,6 +113,7 @@ const userManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["faculties"],
     }),
 
     changeUserStatus: builder.mutation({
@@ -70,8 +122,9 @@ const userManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["students","faculties","admins"],
     }),
   }),
 });
 
-export const {useChangeUserStatusMutation,useCreateStudentMutation,useGetAllStudentsQuery,useGetSingleStudentQuery} = userManagementApi
+export const {useGetAllAdminsQuery,useGetAllFacultiesQuery,useCreateAdminMutation,useCreateFacultyMutation,useChangeUserStatusMutation,useCreateStudentMutation,useGetAllStudentsQuery,useGetSingleStudentQuery} = userManagementApi

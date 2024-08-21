@@ -101,7 +101,7 @@ const CreateStudent = () => {
     formData.append("file",data.image)
 
    await toastPromise(addStudent, formData,"Creating student...");
-    addStudent(formData)
+   
 
     // console.log(Object.fromEntries(formData))
   }

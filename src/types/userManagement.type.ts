@@ -81,3 +81,42 @@ export type TStudent = {
   fullName: string;
   isDeleted: boolean;
 };
+
+export interface TFaculty {
+  _id: string;
+  id: string;
+  user: string;
+  academicDepartment: AcademicDepartment;
+  academicFaculty: AcademicFaculty;
+  designation: string;
+  name: TUserName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNumber: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImage: string;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type TAdmin = {
+  _id: string;
+  id: string;
+  user: string;
+ 
+  designation: string;
+  name: TUserName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNumber: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImage: string;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
