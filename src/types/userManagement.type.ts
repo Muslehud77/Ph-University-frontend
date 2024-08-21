@@ -14,16 +14,58 @@ interface TLocalGuardian extends TGuardian {
   address: string;
 }
 
-export type TStudent = {
-    _id:string;
+export interface AdmissionSemester {
+  _id: string;
+  name: string;
+  year: string;
+  code: string;
+  startMonth: string;
+  endMonth: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface AcademicDepartment {
+  _id: string;
+  name: string;
+  academicFaculty: AcademicFaculty;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface AcademicFaculty {
+  _id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export type TUser = {
+  _id: string;
   id: string;
-  user: string;
+  email: string;
+  isPasswordNeedsChange: boolean;
+  role: string;
+  status: "in-progress" | "blocked";
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+export type TStudent = {
+  _id: string;
+  id: string;
+  user: TUser;
   name: TUserName;
   gender: "male" | "female" | "others";
-  dateOfBirth?: string;
+  dateOfBirth?: Date;
   email: string;
-  admissionSemester: string;
-  academicDepartment: string;
+  admissionSemester: AdmissionSemester;
+  academicDepartment: AcademicDepartment;
   academicFaculty: string;
   contactNumber: string;
   emergencyContactNo: string;
@@ -36,6 +78,6 @@ export type TStudent = {
   };
   localGuardian: TLocalGuardian;
   profileImg?: string;
-  fullName: string
+  fullName: string;
   isDeleted: boolean;
 };

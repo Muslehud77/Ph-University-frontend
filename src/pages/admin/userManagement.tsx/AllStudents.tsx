@@ -7,11 +7,13 @@ import { useState } from "react";
 import { TQueryParams } from "../../../types/global.type";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
 import { TStudent } from "../../../types";
+import { Link } from "react-router-dom";
+import StatusChangeModal from "../../../components/ui/Modal/StatusChangeModal";
 
 
 
 type TTableData = Pick<TStudent, "fullName" | "id" | "email" | 
-"contactNumber"> & { key: string };
+"contactNumber" | "user"> & { key: string };
 
 const columns: TableColumnsType<TTableData> = [
   {
@@ -35,14 +37,28 @@ const columns: TableColumnsType<TTableData> = [
     dataIndex: "contactNumber",
   },
   {
+    title: "Status",
+    key: "user.status",
+    
+    render: (item)=>{
+        console.log(item.user)
+        return(<span style={{textTransform:"capitalize"}}>{item.user.status}</span>)
+    }
+  },
+  {
     title: "Action",
     key: "x",
-    render: () => {
+    render: (item) => {
       return (
         <Space>
+          <Link to={`/admin/student-data/${item.key}`}>
+            <Button>Detail</Button>
+          </Link>
           <Button>Update</Button>
-          <Button>Detail</Button>
-          <Button>Block</Button>
+          <StatusChangeModal
+            block={item.user.status === "blocked" ? true : false}
+            _id={item.user._id}
+          />
         </Space>
       );
     },
@@ -67,43 +83,44 @@ const AllStudents = () => {
   const metaData = studentData?.meta
 
   const tableData = studentData?.data?.map(
-    ({ _id, fullName, id,email,contactNumber }) => ({
+    ({ _id, fullName, id,email,contactNumber ,user}) => ({
       key: _id,
       fullName,
-        id,email,contactNumber
+        id,email,contactNumber,user
     })
   ) as TTableData[];
 
+  console.log(studentData)
 
-  const onChange: TableProps<TTableData>["onChange"] = (
-    _pagination,
-    filters,
-    _sorter,
-    extra
-  ) => {
-    if (extra.action === "filter") {
-      const queryParams: TQueryParams = [];
+//   const onChange: TableProps<TTableData>["onChange"] = (
+//     _pagination,
+//     filters,
+//     _sorter,
+//     extra
+//   ) => {
+//     if (extra.action === "filter") {
+//       const queryParams: TQueryParams = [];
 
-      if (filters.name) {
-        filters.name.forEach((item) =>
-          queryParams.push({
-            name: "name",
-            value: item as string,
-          })
-        );
-      }
-      if (filters.year) {
-        filters.year.forEach((item) =>
-          queryParams.push({
-            name: "year",
-            value: item as number,
-          })
-        );
-      }
+//       if (filters.name) {
+//         filters.name.forEach((item) =>
+//           queryParams.push({
+//             name: "name",
+//             value: item as string,
+//           })
+//         );
+//       }
+//       if (filters.year) {
+//         filters.year.forEach((item) =>
+//           queryParams.push({
+//             name: "year",
+//             value: item as number,
+//           })
+//         );
+//       }
 
-      setParams(queryParams);
-    }
-  };
+//       setParams(queryParams);
+//     }
+//   };
 
   return (
     <>
@@ -111,7 +128,7 @@ const AllStudents = () => {
         loading={isLoading || isFetching}
         columns={columns}
         dataSource={tableData}
-        onChange={onChange}
+        // onChange={onChange}
         showSorterTooltip={{ target: "sorter-icon" }}
         pagination={false}
       />

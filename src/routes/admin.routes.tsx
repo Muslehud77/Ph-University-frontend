@@ -9,6 +9,7 @@ import AllStudents from "../pages/admin/userManagement.tsx/AllStudents";
 import CreateAdmin from "../pages/admin/userManagement.tsx/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement.tsx/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement.tsx/CreateStudent";
+import StudentDetail from "../pages/admin/userManagement.tsx/StudentDetail";
 import { generateRoutes } from "../utils/routesGenerator";
 import { sideNavbarItemsGenerator } from "../utils/sideNavbarItemsGenerator";
 
@@ -65,6 +66,10 @@ const adminPaths = [
         name: "Create Student",
         path: "/admin/create-student",
         element: <CreateStudent />,
+      },
+      {
+        path: "/admin/student-data/:studentId",
+        element: <StudentDetail />,
       },
       {
         name: "Create Admin",

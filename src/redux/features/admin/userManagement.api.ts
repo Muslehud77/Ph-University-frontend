@@ -27,6 +27,20 @@ const userManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getSingleStudent: builder.query({
+      query: (_id) => {
+        return {
+          url: `/students/${_id}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TStudent>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
 
     createStudent: builder.mutation({
       query: (data) => ({
@@ -35,7 +49,29 @@ const userManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    createAdmin: builder.mutation({
+      query: (data) => ({
+        url: "/users/create-admin",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    createFaculty: builder.mutation({
+      query: (data) => ({
+        url: "/users/create-faculty",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    changeUserStatus: builder.mutation({
+      query: ({ data, _id }) => ({
+        url: `/users/change-status/${_id}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const {useCreateStudentMutation,useGetAllStudentsQuery} = userManagementApi
+export const {useChangeUserStatusMutation,useCreateStudentMutation,useGetAllStudentsQuery,useGetSingleStudentQuery} = userManagementApi
