@@ -5,10 +5,14 @@ import CreateAcademicDepartment from "../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from "../pages/admin/academicManagement/CreateAcademicFaculty";
 import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcademicSemester";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminDetail from "../pages/admin/userManagement.tsx/AdminDetail";
+import AllAdmins from "../pages/admin/userManagement.tsx/AllAdmins";
+import AllFaculties from "../pages/admin/userManagement.tsx/AllFaculties";
 import AllStudents from "../pages/admin/userManagement.tsx/AllStudents";
 import CreateAdmin from "../pages/admin/userManagement.tsx/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement.tsx/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement.tsx/CreateStudent";
+import FacultyDetail from "../pages/admin/userManagement.tsx/FacultyDetail";
 import StudentDetail from "../pages/admin/userManagement.tsx/StudentDetail";
 import { generateRoutes } from "../utils/routesGenerator";
 import { sideNavbarItemsGenerator } from "../utils/sideNavbarItemsGenerator";
@@ -63,6 +67,16 @@ const adminPaths = [
         element: <AllStudents />,
       },
       {
+        name: "All Admins",
+        path: "/admin/admins",
+        element: <AllAdmins />,
+      },
+      {
+        name: "All Faculties",
+        path: "/admin/faculties",
+        element: <AllFaculties />,
+      },
+      {
         name: "Create Student",
         path: "/admin/create-student",
         element: <CreateStudent />,
@@ -70,6 +84,14 @@ const adminPaths = [
       {
         path: "/admin/student-data/:studentId",
         element: <StudentDetail />,
+      },
+      {
+        path: "/admin/admin-data/:adminId",
+        element: <AdminDetail />,
+      },
+      {
+        path: "/admin/faculty-data/:facultyId",
+        element: <FacultyDetail />,
       },
       {
         name: "Create Admin",

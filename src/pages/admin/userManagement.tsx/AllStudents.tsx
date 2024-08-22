@@ -41,7 +41,7 @@ const columns: TableColumnsType<TTableData> = [
     key: "user.status",
     
     render: (item)=>{
-        console.log(item.user)
+        
         return(<span style={{textTransform:"capitalize"}}>{item.user.status}</span>)
     }
   },
@@ -90,37 +90,7 @@ const AllStudents = () => {
     })
   ) as TTableData[];
 
-  console.log(studentData)
 
-//   const onChange: TableProps<TTableData>["onChange"] = (
-//     _pagination,
-//     filters,
-//     _sorter,
-//     extra
-//   ) => {
-//     if (extra.action === "filter") {
-//       const queryParams: TQueryParams = [];
-
-//       if (filters.name) {
-//         filters.name.forEach((item) =>
-//           queryParams.push({
-//             name: "name",
-//             value: item as string,
-//           })
-//         );
-//       }
-//       if (filters.year) {
-//         filters.year.forEach((item) =>
-//           queryParams.push({
-//             name: "year",
-//             value: item as number,
-//           })
-//         );
-//       }
-
-//       setParams(queryParams);
-//     }
-//   };
 
   return (
     <>
@@ -128,7 +98,7 @@ const AllStudents = () => {
         loading={isLoading || isFetching}
         columns={columns}
         dataSource={tableData}
-        // onChange={onChange}
+     
         showSorterTooltip={{ target: "sorter-icon" }}
         pagination={false}
       />

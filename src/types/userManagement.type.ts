@@ -105,8 +105,7 @@ export interface TFaculty {
 export type TAdmin = {
   _id: string;
   id: string;
-  user: string;
- 
+  user: TUser;
   designation: string;
   name: TUserName;
   gender: string;
