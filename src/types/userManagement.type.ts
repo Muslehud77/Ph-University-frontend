@@ -85,7 +85,7 @@ export type TStudent = {
 export interface TFaculty {
   _id: string;
   id: string;
-  user: string;
+  user: TUser;
   academicDepartment: AcademicDepartment;
   academicFaculty: AcademicFaculty;
   designation: string;
