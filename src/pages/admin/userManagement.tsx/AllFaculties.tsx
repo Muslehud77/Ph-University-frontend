@@ -5,7 +5,7 @@ import type { TableColumnsType } from "antd";
 import { useState } from "react";
 import { TQueryParams } from "../../../types/global.type";
 import { useGetAllFacultiesQuery } from "../../../redux/features/admin/userManagement.api";
-import {  TFaculty } from "../../../types";
+import { TFaculty } from "../../../types";
 import { Link } from "react-router-dom";
 import StatusChangeModal from "../../../components/ui/Modal/StatusChangeModal";
 
@@ -26,7 +26,7 @@ const columns: TableColumnsType<TTableData> = [
     },
   },
   {
-    title: "Student Id",
+    title: "Faculty Id",
     key: "id",
     dataIndex: "id",
   },
@@ -101,7 +101,7 @@ const AllFaculties = () => {
   return (
     <>
       <Table
-        loading={isLoading || isFetching}
+        loading={isLoading}
         columns={columns}
         dataSource={tableData}
         showSorterTooltip={{ target: "sorter-icon" }}

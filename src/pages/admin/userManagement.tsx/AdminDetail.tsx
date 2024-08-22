@@ -7,7 +7,7 @@ const AdminDetail = () => {
   const { adminId } = useParams();
   const { data, isLoading, isFetching } = useGetSingleAdminQuery(adminId);
 
-  const admin = data?.data || ({} as TAdmin);
+  const admin = data?.data || {} as TAdmin;
 
   if (isLoading || isFetching) {
     return (

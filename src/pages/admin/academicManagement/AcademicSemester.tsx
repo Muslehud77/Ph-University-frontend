@@ -56,11 +56,13 @@ const columns: TableColumnsType<TTableData> = [
   },
 ];
 
-
-
 const AcademicSemester = () => {
   const [params, setParams] = useState<TQueryParams>([]);
-  const { data: semesterData,isLoading,isFetching } = useGetAllSemestersQuery(params);
+  const {
+    data: semesterData,
+    isLoading,
+    isFetching,
+  } = useGetAllSemestersQuery(params);
 
   const tableData = semesterData?.data?.map(
     ({ _id, name, startMonth, endMonth, year }) => ({
@@ -104,7 +106,7 @@ const AcademicSemester = () => {
 
   return (
     <Table
-      loading={isLoading || isFetching}
+      loading={isLoading}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}

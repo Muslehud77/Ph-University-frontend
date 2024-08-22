@@ -20,14 +20,13 @@ const columns: TableColumnsType<TTableData> = [
 
     key: "name",
     render: (item) => {
-        
-        const name = `${item.name.firstName} ${item.name.middleName} ${item.name.lastName}`;
+      const name = `${item.name.firstName} ${item.name.middleName} ${item.name.lastName}`;
 
       return <span style={{ textTransform: "capitalize" }}>{name}</span>;
     },
   },
   {
-    title: "Student Id",
+    title: "Admin Id",
     key: "id",
     dataIndex: "id",
   },
@@ -102,7 +101,7 @@ const AllAdmins = () => {
   return (
     <>
       <Table
-        loading={isLoading || isFetching}
+        loading={isLoading}
         columns={columns}
         dataSource={tableData}
         showSorterTooltip={{ target: "sorter-icon" }}

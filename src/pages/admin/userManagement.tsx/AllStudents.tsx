@@ -1,6 +1,5 @@
 import { Button, Pagination, Space, Table } from "antd";
 
-
 import type { TableColumnsType, TableProps } from "antd";
 
 import { useState } from "react";
@@ -10,10 +9,10 @@ import { TStudent } from "../../../types";
 import { Link } from "react-router-dom";
 import StatusChangeModal from "../../../components/ui/Modal/StatusChangeModal";
 
-
-
-type TTableData = Pick<TStudent, "fullName" | "id" | "email" | 
-"contactNumber" | "user"> & { key: string };
+type TTableData = Pick<
+  TStudent,
+  "fullName" | "id" | "email" | "contactNumber" | "user"
+> & { key: string };
 
 const columns: TableColumnsType<TTableData> = [
   {
@@ -39,11 +38,12 @@ const columns: TableColumnsType<TTableData> = [
   {
     title: "Status",
     key: "user.status",
-    
-    render: (item)=>{
-        
-        return(<span style={{textTransform:"capitalize"}}>{item.user.status}</span>)
-    }
+
+    render: (item) => {
+      return (
+        <span style={{ textTransform: "capitalize" }}>{item.user.status}</span>
+      );
+    },
   },
   {
     title: "Action",
@@ -68,7 +68,7 @@ const columns: TableColumnsType<TTableData> = [
 
 const AllStudents = () => {
   const [params, setParams] = useState<TQueryParams>([]);
-  const [page,setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const {
     data: studentData,
     isLoading,
@@ -80,29 +80,35 @@ const AllStudents = () => {
     ...params,
   ]);
 
-  const metaData = studentData?.meta
+  const metaData = studentData?.meta;
 
   const tableData = studentData?.data?.map(
-    ({ _id, fullName, id,email,contactNumber ,user}) => ({
+    ({ _id, fullName, id, email, contactNumber, user }) => ({
       key: _id,
       fullName,
-        id,email,contactNumber,user
+      id,
+      email,
+      contactNumber,
+      user,
     })
   ) as TTableData[];
-
-
 
   return (
     <>
       <Table
-        loading={isLoading || isFetching}
+        loading={isLoading}
         columns={columns}
         dataSource={tableData}
-     
         showSorterTooltip={{ target: "sorter-icon" }}
         pagination={false}
       />
-      <Pagination onChange={(value)=> setPage(value)} defaultCurrent={page} current={page} total={metaData?.total} pageSize={metaData?.limitDataCount} />
+      <Pagination
+        onChange={(value) => setPage(value)}
+        defaultCurrent={page}
+        current={page}
+        total={metaData?.total}
+        pageSize={metaData?.limitDataCount}
+      />
     </>
   );
 };

@@ -7,27 +7,21 @@ import { TAcademicDepartment } from "../../../types/academicManagement.type";
 import { useState } from "react";
 import { TQueryParams } from "../../../types/global.type";
 
-
-
-type TTableData = Pick<
-  TAcademicDepartment,
-  "name" | "academicFaculty" 
-> & { key: string };
+type TTableData = Pick<TAcademicDepartment, "name" | "academicFaculty"> & {
+  key: string;
+};
 
 const columns: TableColumnsType<TTableData> = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
-   
   },
   {
     title: "Faculty",
     key: "academicFaculty",
     dataIndex: "academicFaculty",
-  
   },
- 
 ];
 
 const AcademicDepartment = () => {
@@ -37,7 +31,6 @@ const AcademicDepartment = () => {
     isLoading,
     isFetching,
   } = useGetAllAcademicDepartmentsQuery(params);
-
 
   const tableData = departmentData?.data?.map(
     ({ _id, name, academicFaculty }) => ({
@@ -79,7 +72,7 @@ const AcademicDepartment = () => {
 
   return (
     <Table
-      loading={isLoading || isFetching}
+      loading={isLoading}
       columns={columns}
       dataSource={tableData}
       // onChange={onChange}

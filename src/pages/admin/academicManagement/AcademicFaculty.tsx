@@ -1,27 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Table } from "antd";
-import { useGetAllAcademicFacultiesQuery, useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import {
+  useGetAllAcademicFacultiesQuery,
+  useGetAllSemestersQuery,
+} from "../../../redux/features/admin/academicManagement.api";
 
 import type { TableColumnsType } from "antd";
 import { TAcademicFaculty } from "../../../types/academicManagement.type";
 import { useState } from "react";
 import { TQueryParams } from "../../../types/global.type";
 
-
-
-type TTableData = Pick<
-  TAcademicFaculty,
-  "name" 
-> & { key: string };
+type TTableData = Pick<TAcademicFaculty, "name"> & { key: string };
 
 const columns: TableColumnsType<TTableData> = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
-  
-  }
-  
+  },
 ];
 
 const AcademicFaculty = () => {
@@ -32,13 +28,10 @@ const AcademicFaculty = () => {
     isFetching,
   } = useGetAllAcademicFacultiesQuery(params);
 
-  const tableData = semesterData?.data?.map(
-    ({ _id, name }) => ({
-      key: _id,
-      name,
-      
-    })
-  ) as TTableData[];
+  const tableData = semesterData?.data?.map(({ _id, name }) => ({
+    key: _id,
+    name,
+  })) as TTableData[];
 
   // const onChange: TableProps<TTableData>["onChange"] = (
   //   _pagination,
@@ -72,7 +65,7 @@ const AcademicFaculty = () => {
 
   return (
     <Table
-      loading={isLoading || isFetching}
+      loading={isLoading}
       columns={columns}
       dataSource={tableData}
       // onChange={onChange}
