@@ -1,5 +1,5 @@
 
-import { TFaculty, TQueryParams, TResponseRedux, TStudent } from "../../../types";
+import { TAdmin, TFaculty, TQueryParams, TResponseRedux, TStudent } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const userManagementApi = baseApi.injectEndpoints({
@@ -44,7 +44,7 @@ const userManagementApi = baseApi.injectEndpoints({
           params,
         };
       },
-      transformResponse: (response: TResponseRedux<TStudent[]>) => {
+      transformResponse: (response: TResponseRedux<TAdmin[]>) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -90,6 +90,34 @@ const userManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getSingleAdmin: builder.query({
+      query: (_id) => {
+        return {
+          url: `/admins/${_id}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAdmin>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+    getSingleFaculty: builder.query({
+      query: (_id) => {
+        return {
+          url: `/faculties/${_id}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TFaculty>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
 
     createStudent: builder.mutation({
       query: (data) => ({
@@ -127,4 +155,4 @@ const userManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {useGetAllAdminsQuery,useGetAllFacultiesQuery,useCreateAdminMutation,useCreateFacultyMutation,useChangeUserStatusMutation,useCreateStudentMutation,useGetAllStudentsQuery,useGetSingleStudentQuery} = userManagementApi
+export const {useGetSingleFacultyQuery,useGetSingleAdminQuery,useGetAllAdminsQuery,useGetAllFacultiesQuery,useCreateAdminMutation,useCreateFacultyMutation,useChangeUserStatusMutation,useCreateStudentMutation,useGetAllStudentsQuery,useGetSingleStudentQuery} = userManagementApi
