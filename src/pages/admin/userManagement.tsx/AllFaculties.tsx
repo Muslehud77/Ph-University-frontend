@@ -77,7 +77,7 @@ const AllFaculties = () => {
   const {
     data: facultyData,
     isLoading,
-    isFetching,
+   
   } = useGetAllFacultiesQuery([
     { name: "limit", value: 10 },
     { name: "page", value: page },
