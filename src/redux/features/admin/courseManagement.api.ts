@@ -2,13 +2,14 @@ import {
   TQueryParams,
   TResponseRedux,
 
-  TAcademicSemester,
+ 
+  TRegisteredSemester,
 } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const courseManagement = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllSemesters: builder.query({
+    getAllRegisteredSemester: builder.query({
       query: (args: TQueryParams | undefined) => {
         const params = new URLSearchParams();
 
@@ -19,12 +20,12 @@ const courseManagement = baseApi.injectEndpoints({
         }
 
         return {
-          url: "/academic-semesters",
+          url: "/semester-registrations",
           method: "GET",
           params,
         };
       },
-      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
+      transformResponse: (response: TResponseRedux<TRegisteredSemester[]>) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -43,5 +44,5 @@ const courseManagement = baseApi.injectEndpoints({
 });
 
 export const {
-  useCreateSemesterMutation
+  useCreateSemesterMutation,useGetAllRegisteredSemesterQuery
 } = courseManagement;

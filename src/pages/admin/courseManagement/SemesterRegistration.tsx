@@ -3,17 +3,17 @@ import PHForm from "../../../components/form/PHForm";
 
 import { Button, Col, Flex } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
-import { monthOptions } from "../../../constants/global";
-import { codeOptions, semesterStatusOptions } from "../../../constants/semester";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-import { createAcademicSemesterSchema } from "../../../Schema/academicManagement.schema";
-import { useCreateAcademicSemestersMutation, useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import {  semesterStatusOptions } from "../../../constants/semester";
+
+
+
+import {  useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 
 import { useToastPromise } from "../../../hooks/useToastPromise";
 import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHInput from "../../../components/form/PHInput";
-import { useCreateSemesterMutation } from "../../../redux/features/admin/courseManagement";
+import { useCreateSemesterMutation } from "../../../redux/features/admin/courseManagement.api";
 
 const SemesterRegistration = () => {
   const {data:semesterData,isFetching,isSuccess} = useGetAllSemestersQuery([{name:"sort",value:"year"}])
@@ -39,14 +39,14 @@ const SemesterRegistration = () => {
      maxCredit: Number(data.maxCredit)
     };
 
-    console.log(data)
+    
 
-    const res = await toastPromise(
+    await toastPromise(
       addSemester,
       semesterData,
       "Creating a semester..."
     );
-    console.log(res);
+    
   };
 
   return (

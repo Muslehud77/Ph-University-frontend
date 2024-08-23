@@ -2,7 +2,7 @@
 import { Table } from "antd";
 import {
   useGetAllAcademicFacultiesQuery,
-  useGetAllSemestersQuery,
+  
 } from "../../../redux/features/admin/academicManagement.api";
 
 import type { TableColumnsType } from "antd";
@@ -33,35 +33,7 @@ const AcademicFaculty = () => {
     name,
   })) as TTableData[];
 
-  // const onChange: TableProps<TTableData>["onChange"] = (
-  //   _pagination,
-  //   filters,
-  //   _sorter,
-  //   extra
-  // ) => {
-  //   if (extra.action === "filter") {
-  //     const queryParams: TQueryParams = [];
-
-  //     if (filters.name) {
-  //       filters.name.forEach((item) =>
-  //         queryParams.push({
-  //           name: "name",
-  //           value: item as string,
-  //         })
-  //       );
-  //     }
-  //     if (filters.year) {
-  //       filters.year.forEach((item) =>
-  //         queryParams.push({
-  //           name: "year",
-  //           value: item as number,
-  //         })
-  //       );
-  //     }
-
-  //     setParams(queryParams);
-  //   }
-  // };
+ 
 
   return (
     <Table
