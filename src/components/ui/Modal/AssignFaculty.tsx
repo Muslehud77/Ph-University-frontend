@@ -1,11 +1,12 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Space } from "antd";
 import { useState } from "react";
-import { useGetAssignedFacultiesQuery } from "../../../redux/features/admin/courseManagement.api";
+import { useGetAssignedFacultiesQuery, useUpdateAssignedFacultiesMutation } from "../../../redux/features/admin/courseManagement.api";
 import { TFaculty } from "../../../types";
 import PHForm from "../../form/PHForm";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PHSelect from "../../form/PHSelect";
 import { useGetAllFacultiesQuery } from "../../../redux/features/admin/userManagement.api";
+import { useToastPromise } from "../../../hooks/useToastPromise";
 
 
 
@@ -14,10 +15,13 @@ type AssignFacultyProps = {
 };
 
 const AssignFaculty = ({ _id }: AssignFacultyProps) => {
+    const {toastPromise} = useToastPromise()
     const [skipFetching,setSkipFetching] = useState(true) 
     const { data: assignedFaculties, isLoading: assignedFacultiesLoading } =
       useGetAssignedFacultiesQuery(_id, { skip: skipFetching });
     const {data:allFaculties, isLoading:allFacultiesLoading} = useGetAllFacultiesQuery(undefined,{skip:skipFetching||assignedFacultiesLoading})
+
+    const [assignFaculty] = useUpdateAssignedFacultiesMutation()
 
     const [open, setOpen] = useState<boolean>(false);
    
@@ -25,9 +29,7 @@ const AssignFaculty = ({ _id }: AssignFacultyProps) => {
     const faculties = assignedFaculties?.data?.faculties;
 
     
-    const handleSubmit : SubmitHandler<FieldValues> = (data) =>{
-        console.log(data);
-    }
+   
 
     const assignedFacultyIds = new Set(faculties?.map((f: TFaculty) => f._id));
 
@@ -47,7 +49,14 @@ const AssignFaculty = ({ _id }: AssignFacultyProps) => {
         setOpen(false);
     }
 
-  
+     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+       await toastPromise(
+         assignFaculty,
+         { data, _id },
+         "Assigning faculties..."
+       );
+       closeModal()
+     };
 
 
     const facultyOptions = options?.map((f: TFaculty) => ({
@@ -62,9 +71,11 @@ const AssignFaculty = ({ _id }: AssignFacultyProps) => {
         Assign Faculty
       </Button>
       <Modal
+      footer={null}
         title={<h2>Assign Faculties</h2>}
         loading={assignedFacultiesLoading || allFacultiesLoading}
         open={open}
+        onOk={closeModal}
         onCancel={closeModal}
       >
         {faculties?.length && (
@@ -73,7 +84,7 @@ const AssignFaculty = ({ _id }: AssignFacultyProps) => {
             {!assignedFacultiesLoading || faculties?.length ? (
               faculties?.map((faculty: TFaculty) => (
                 <p key={faculty._id}>
-                  {`${faculty.name.firstName} ${faculty.name.middleName} ${faculty.name.lastName} ${faculty.id}` }
+                  {`${faculty.name.firstName} ${faculty.name.middleName} ${faculty.name.lastName} ${faculty.id}`}
                 </p>
               ))
             ) : (
@@ -83,12 +94,8 @@ const AssignFaculty = ({ _id }: AssignFacultyProps) => {
         )}
         <h3>Choose Faculties</h3>
         <PHForm onSubmit={handleSubmit}>
-          <PHSelect
-            options={facultyOptions}
-           
-            name="selectedFaculties"
-            multiple={true}
-          />
+          <PHSelect options={facultyOptions} name="faculties" multiple={true} />
+          <Button htmlType="submit">Submit</Button>
         </PHForm>
       </Modal>
     </>
