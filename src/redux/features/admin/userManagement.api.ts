@@ -53,7 +53,7 @@ const userManagementApi = baseApi.injectEndpoints({
       providesTags: ["admins"],
     }),
     getAllFaculties: builder.query({
-      query: (args: TQueryParams) => {
+      query: (args: TQueryParams|undefined) => {
         const params = new URLSearchParams();
 
         if (args?.length) {

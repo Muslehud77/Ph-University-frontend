@@ -6,7 +6,7 @@ import { TPath, TSideBar } from '../types';
 
 export const sideNavbarItemsGenerator = (paths: TPath[]) => {
   const sidebarRoutes = paths.reduce((acc: TSideBar[], item) => {
-    console.log(item?.children)
+    
     if (item.name && item.path) {
       acc.push({
         key: item.name,

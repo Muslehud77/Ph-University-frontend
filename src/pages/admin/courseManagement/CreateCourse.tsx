@@ -4,14 +4,10 @@ import PHForm from "../../../components/form/PHForm";
 import { Button, Col, Flex } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
 
-import { semesterStatusOptions } from "../../../constants/semester";
-
-import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
-
 import { useToastPromise } from "../../../hooks/useToastPromise";
-import PHDatePicker from "../../../components/form/PHDatePicker";
+
 import PHInput from "../../../components/form/PHInput";
-import { useCreateCourseMutation, useCreateSemesterMutation, useGetAllCoursesQuery } from "../../../redux/features/admin/courseManagement.api";
+import { useCreateCourseMutation, useGetAllCoursesQuery } from "../../../redux/features/admin/courseManagement.api";
 
 const CreateCourse = () => {
   const {

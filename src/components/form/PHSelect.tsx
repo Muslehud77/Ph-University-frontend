@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 import { TOptions } from "../../types/global.type";
 
 type PHSelectProps = {
-  label: string;
+  label?: string;
   name: string;
   options: TOptions;
   defaultValue?: string;
