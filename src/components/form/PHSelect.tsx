@@ -8,6 +8,7 @@ type PHSelectProps = {
   options: TOptions;
   defaultValue?: string;
   loading?: boolean;
+  multiple?: boolean
 };
 
 const PHSelect = ({
@@ -16,6 +17,7 @@ const PHSelect = ({
   options,
   defaultValue,
   loading,
+  multiple
 }: PHSelectProps) => {
   return (
     <Controller
@@ -23,6 +25,7 @@ const PHSelect = ({
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
+          mode={multiple ? "multiple" : undefined}
             {...field}
             defaultValue={defaultValue}
             style={{ width: "100%" ,textTransform:"capitalize"}}

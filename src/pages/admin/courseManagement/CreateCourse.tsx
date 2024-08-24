@@ -1,9 +1,66 @@
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import PHForm from "../../../components/form/PHForm";
+
+import { Button, Col, Flex } from "antd";
+import PHSelect from "../../../components/form/PHSelect";
+
+import { semesterStatusOptions } from "../../../constants/semester";
+
+import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+
+import { useToastPromise } from "../../../hooks/useToastPromise";
+import PHDatePicker from "../../../components/form/PHDatePicker";
+import PHInput from "../../../components/form/PHInput";
+import { useCreateCourseMutation, useCreateSemesterMutation, useGetAllCoursesQuery } from "../../../redux/features/admin/courseManagement.api";
 
 const CreateCourse = () => {
+  const {
+    data: coursesData,
+    isFetching,
+    isSuccess,
+  } = useGetAllCoursesQuery(undefined);
+  const [addCourse] = useCreateCourseMutation();
+  const { toastPromise } = useToastPromise();
+
+  const coursesOptions = isSuccess
+    ? coursesData.data.map((course) => ({
+        value: course._id,
+        label: `${course.title} ${course.code}`,
+      }))
+    : [];
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const preRequisiteCourses = data.preRequisiteCourses ?  data?.preRequisiteCourses?.map((course:string) => ({course})) : undefined
+  
+    const courseData = {...data,preRequisiteCourses,code:Number(data?.code),credits: Number(data?.credits)}
+
+
+    await toastPromise(addCourse, courseData, "Creating a course...");
+  };
+
   return (
-    <div>
-     <h1>This is CreateCourse</h1>
-    </div>
+    <Flex justify="center" align="center">
+      <Col span={6}>
+        <PHForm
+          onSubmit={onSubmit}
+          // resolver={zodResolver(createAcademicSemesterSchema)}
+        >
+          <PHInput label="Title" name="title" />
+          <PHInput label="Prefix" name="prefix" />
+          <PHInput label="Course Code" name="code" type="number" />
+          <PHInput label="Credit" name="credits" type="number" />
+
+          <PHSelect
+            options={coursesOptions}
+            label="Prerequisite Courses"
+            name="preRequisiteCourses"
+            multiple={true}
+            loading={isFetching}
+          />
+          <Button htmlType="submit">Submit</Button>
+        </PHForm>
+      </Col>
+    </Flex>
   );
 };
 

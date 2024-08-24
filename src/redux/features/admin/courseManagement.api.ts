@@ -67,6 +67,14 @@ const courseManagement = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["registeredSemesters"],
     }),
+    updateCourse: builder.mutation({
+      query: ({ data, _id }) => ({
+        url: `/courses/${_id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["courses"],
+    }),
 
     createSemester: builder.mutation({
       query: (data) => ({
@@ -88,5 +96,10 @@ const courseManagement = baseApi.injectEndpoints({
 });
 
 export const {
- useUpdateRegisteredSemesterMutation, useCreateSemesterMutation,useGetAllRegisteredSemesterQuery
+  useCreateCourseMutation,
+  useGetAllCoursesQuery,
+  useUpdateCourseMutation,
+  useUpdateRegisteredSemesterMutation,
+  useCreateSemesterMutation,
+  useGetAllRegisteredSemesterQuery,
 } = courseManagement;
