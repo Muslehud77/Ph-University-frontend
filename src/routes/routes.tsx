@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role="admin">
         <App />
       </ProtectedRoute>
     ),
@@ -25,12 +25,20 @@ export const router = createBrowserRouter([
   },
   {
     path: "/faculty",
-    element: <App />,
+    element: (
+      <ProtectedRoute role="faculty">
+        <App />
+      </ProtectedRoute>
+    ),
     children: FacultyRoutes,
   },
   {
     path: "/student",
-    element: <App />,
+    element: (
+      <ProtectedRoute role="student">
+        <App />
+      </ProtectedRoute>
+    ),
     children: StudentRoutes,
   },
   {

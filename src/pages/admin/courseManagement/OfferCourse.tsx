@@ -59,7 +59,7 @@ const OfferCourse = () => {
     data: facultiesData,
     isFetching: isFacultyFetching,
     isSuccess: isFacultyLoaded,
-  } = useGetAssignedFacultiesQuery(courseId, { skip: courseId ? false : true });
+  } = useGetAssignedFacultiesQuery(courseId, { skip: !courseId });
 
   const assignedFacultyOptions = isFacultyLoaded
     ? facultiesData?.data?.faculties.map((item: TFaculty) => ({
@@ -98,7 +98,6 @@ const OfferCourse = () => {
     : [];
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-  
     const { time, maxCapacity, section, ...rest } = data;
     const offerCourse = {
       ...rest,
@@ -107,7 +106,7 @@ const OfferCourse = () => {
     } as TOfferedCourse;
 
     const startEndTime = time?.map((t: Dayjs) => dayjs(t).format("HH:mm"));
-    if (startEndTime.length) {
+    if (startEndTime?.length) {
       offerCourse["startTime"] = startEndTime[0];
       offerCourse["endTime"] = startEndTime[1];
     }
