@@ -5,6 +5,7 @@ import {
  
   TRegisteredSemester,
   TCourse,
+  TOfferedCourse,
 } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
@@ -58,6 +59,30 @@ const courseManagement = baseApi.injectEndpoints({
       },
       providesTags: ["registeredSemesters"],
     }),
+    getAllOfferedCourses: builder.query({
+      query: (args: TQueryParams | undefined) => {
+        const params = new URLSearchParams();
+
+        if (args?.length) {
+          args.map((arg) =>
+            params.append(arg.name.toString(), arg.value.toString())
+          );
+        }
+
+        return {
+          url: "/offered-courses",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TOfferedCourse[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["offeredCourse"],
+    }),
 
     getAssignedFaculties: builder.query({
       query: (courseId: string) => {
@@ -110,10 +135,20 @@ const courseManagement = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["courses", "assignedFaculties"],
     }),
+    createOfferedCourse: builder.mutation({
+      query: (data) => ({
+        url: "/offered-courses",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["offeredCourse"],
+    }),
   }),
 });
 
 export const {
+  useGetAllOfferedCoursesQuery,
+  useCreateOfferedCourseMutation,
   useUpdateAssignedFacultiesMutation, 
   useGetAssignedFacultiesQuery,
   useCreateCourseMutation,
