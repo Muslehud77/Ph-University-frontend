@@ -4,21 +4,29 @@ import PHInput from "../components/form/PHInput";
 import {  FieldValues, SubmitHandler } from "react-hook-form";
 import { useChangePasswordMutation } from "../redux/features/auth/authApi";
 import { useToastPromise } from "../hooks/useToastPromise";
+import { useAppDispatch } from "../redux/hooks/reduxHooks";
+import { logout } from "../redux/features/auth/authSlice";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
+    const dispatch = useAppDispatch()
     const {toastPromise} = useToastPromise()
     const [changePassword] = useChangePasswordMutation()
+
+    const navigate = useNavigate()
 
     const onSubmit : SubmitHandler<FieldValues> =async (data)=>{
        
         const res= await toastPromise(changePassword, data,"Changing password...") as Record<string,unknown> ;
-
+        console.log(res);
         if(res?.success){
-            console.log("hello")
+            dispatch(logout())
+             navigate("/login")
         }
         
+        
 
-        console.log(res)
+        
     }
 
   return (
