@@ -8,11 +8,29 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
 import PHInput from "../components/form/PHInput";
+import { useToastPromise } from "../hooks/useToastPromise";
+
+
+export type TLoginResponse = {
+  success: boolean
+  message: string
+
+  data:  {
+  accessToken: string
+  isPasswordNeedsChange: boolean
+}
+}
+
+
+
+
+
+
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const {toastPromise} = useToastPromise()
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -23,25 +41,34 @@ const Login = () => {
   };
 
   const onSubmit = async (formData: FieldValues) => {
-    console.log(formData);
-    const loading = toast.loading("logging in");
+   
+   
     const userInfo = {
       id: formData.userId,
       password: formData.password,
     };
+    
+    const res = (await toastPromise(
+      login,
+      userInfo,
+      "logging in"
+    )) as TLoginResponse;
 
-    try {
-      const res = await login(userInfo).unwrap();
+  
+     if(res?.success){
+      const user = verifyToken(res?.data?.accessToken) as TUser;
 
-      const user = verifyToken(res.data.accessToken) as TUser;
+      if (res?.data?.isPasswordNeedsChange) {
+        navigate("/change-password");
+      } else {
+        navigate(`/${user?.role}/dashboard`);
+      }
 
-      navigate(`/${user?.role}/dashboard`);
-      toast.success(res.message, { id: loading });
-      dispatch(setUser({ user, token: res.data.accessToken }));
-    } catch (err: any) {
+      dispatch(setUser({ user, token: res?.data?.accessToken }));
+     }
 
-      toast.error(err?.data?.message, { id: loading });
-    }
+
+   
   };
 
   return (

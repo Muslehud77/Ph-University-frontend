@@ -1,21 +1,19 @@
-import { useState } from "react";
 import { toast } from "sonner";
 import { TResponse } from "../types/global.type";
 
-
 type TToastPromise = (
-  promise: (
-    arg: Record<string, unknown>
-  ) => Promise<TResponse<Record<string, unknown>[]> | unknown>,
-  payload: Record<string, unknown> | FormData ,
+  promise: (arg: Record<string, unknown>) => Promise<
+    TResponse<Record<string, unknown>[]> | unknown
+  > & {
+    unwrap(): Promise<any>;
+  },
+  payload: Record<string, unknown> | FormData,
   loadingMessage?: string,
   successMessage?: string,
   errorMessage?: string
 ) => Promise<TResponse<Record<string, unknown>[]> | unknown>;
 
 export const useToastPromise = () => {
-  const [result, setResult] = useState<TResponse<Record<string, unknown>[]>>({});
-
   const toastPromise: TToastPromise = async (
     promise,
     payload,
@@ -23,26 +21,23 @@ export const useToastPromise = () => {
     successMessage,
     errorMessage
   ) => {
+    const loading = toast.loading(loadingMessage || "Loading...");
     try {
-      toast.promise(promise(payload as Record<string, unknown>), {
-        loading: loadingMessage || "Loading...",
-        success: (data: TResponse<Record<string, unknown>[]> | unknown) => {
-          if (typeof data === "object") {
-            const responseData = data as TResponse<Record<string, unknown>[]>;
-            setResult(responseData);
-            if (responseData.error) {
-              throw new Error(responseData.error.data.message);
-            }
-            return successMessage || responseData?.data?.message || "Success";
-          }
-        },
-        error: (error: { message: string }) => {
-          return errorMessage || error.message || "Something went wrong.";
-        },
+      const res = await promise(payload as Record<string, unknown>).unwrap()  as any;
+
+      toast.success(successMessage || res?.message || "Success", {
+        id: loading,
       });
-      return result;
-    } catch (error) {
-      return result;
+
+      return res;
+    } catch (error : any) {
+      toast.error(
+        errorMessage || error?.data?.message || "Something went wrong.",
+        {
+          id: loading,
+        }
+      );
+      return error;
     }
   };
   return { toastPromise };
