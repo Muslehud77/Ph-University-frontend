@@ -35,7 +35,7 @@ const PHTimePicker = ({
               size="large"
               format={format || "HH:mm"}
               {...field}
-              defaultOpenValue={dayjs("00:00", format || "HH:mm")}
+              
               style={{ width: "100%", textTransform: "capitalize" }}
             />
           )}
