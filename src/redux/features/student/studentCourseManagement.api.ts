@@ -23,22 +23,26 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
           params,
         };
       },
-      transformResponse: (response: TResponseRedux<TStudentOfferedCourse[]>) => {
+      transformResponse: (
+        response: TResponseRedux<TStudentOfferedCourse[]>
+      ) => {
         return {
           data: response.data,
           meta: response.meta,
         };
       },
+      providesTags: ["myOfferedCourses"],
     }),
 
-    createAcademicFaculty: builder.mutation({
+    enrollCourse: builder.mutation({
       query: (data) => ({
-        url: "/academic-faculties/create-academic-faculty",
+        url: "/enrolled-courses",
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["myOfferedCourses"],
     }),
   }),
 });
 
-export const { useGetMyOfferedCoursesQuery } = studentCourseManagementApi;
+export const {useEnrollCourseMutation, useGetMyOfferedCoursesQuery } = studentCourseManagementApi;

@@ -1,5 +1,6 @@
 
 
+import MySchedule from "../pages/student/MySchedule";
 import OfferedCourse from "../pages/student/OfferedCourse";
 import StudentDashboard from "../pages/student/StudentDashboard";
 import { generateRoutes } from "../utils/routesGenerator";
@@ -15,6 +16,11 @@ const studentPaths = [
     name: "Offered Courses",
     path: "/student/offered-course",
     element: <OfferedCourse />,
+  },
+  {
+    name: "My Schedule",
+    path: "/student/my-schedule",
+    element: <MySchedule />,
   },
  
 ];
