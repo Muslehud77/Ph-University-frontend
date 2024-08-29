@@ -7,7 +7,7 @@ import PHSelect from "../../../components/form/PHSelect";
 import { useToastPromise } from "../../../hooks/useToastPromise";
 
 import {
-  useCreateCourseMutation,
+ 
   useCreateOfferedCourseMutation,
   useGetAllCoursesQuery,
   useGetAllRegisteredSemesterQuery,
@@ -35,7 +35,9 @@ const OfferCourse = () => {
     data: coursesData,
     isFetching: isCourseFetching,
     isSuccess: isCoursesLoaded,
-  } = useGetAllCoursesQuery(undefined);
+  } = useGetAllCoursesQuery([
+    { name: "limit", value: 100 },
+  ]);
 
   const {
     data: semesterRegistrationsData,
@@ -123,7 +125,7 @@ const OfferCourse = () => {
         >
           <PHSelect
             options={registeredSemesterOptions}
-            label="Course"
+            label="Registered Semester"
             name="semesterRegistration"
             loading={isSemesterRegistrationFetching}
           />
@@ -142,7 +144,7 @@ const OfferCourse = () => {
           <PHSelectWithWatch
             setValue={setCourseId}
             options={coursesOptions}
-            label="Registered Semester"
+            label="Course"
             name="course"
             loading={isCourseFetching}
           />

@@ -44,3 +44,23 @@ export type TOfferedCourse = {
   endTime: string;
 };
 
+export type TStudentOfferedCourse = {
+  _id: string;
+  semesterRegistration: string;
+  academicSemester: string;
+  academicFaculty: string;
+  academicDepartment: string;
+  course: TCourse;
+  faculty: string;
+  maxCapacity: number;
+  section: number;
+  days: string[];
+  startTime: string;
+  endTime: string;
+  __v: number;
+  enrolledCourses: string[];
+  completedCourses: string[];
+  completedCourseIds: string[];
+  isPreRequisitesFulFilled: boolean;
+  isAlreadyEnrolled: boolean;
+}

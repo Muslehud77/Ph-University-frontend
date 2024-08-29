@@ -36,8 +36,8 @@ const Login = () => {
 
 
   const defaultValues = {
-    userId: "2026020001",
-    password: "Student123",
+    userId: "2026010001",
+    password: "12345",
   };
 
   const onSubmit = async (formData: FieldValues) => {

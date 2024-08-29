@@ -1,8 +1,7 @@
 import {
   TQueryParams,
   TResponseRedux,
-
-  TAcademicSemester,
+  TStudentOfferedCourse,
 } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
@@ -24,7 +23,7 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
           params,
         };
       },
-      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
+      transformResponse: (response: TResponseRedux<TStudentOfferedCourse[]>) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -32,7 +31,6 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
       },
     }),
 
-   
     createAcademicFaculty: builder.mutation({
       query: (data) => ({
         url: "/academic-faculties/create-academic-faculty",
@@ -43,6 +41,4 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {
-
-} = studentCourseManagementApi;
+export const { useGetMyOfferedCoursesQuery } = studentCourseManagementApi;
