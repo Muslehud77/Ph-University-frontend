@@ -1,7 +1,7 @@
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateAdmin from "../pages/admin/userManagement.tsx/CreateAdmin";
-import CreateFaculty from "../pages/admin/userManagement.tsx/CreateFaculty";
-import CreateStudent from "../pages/admin/userManagement.tsx/CreateStudent";
+
+import FacultyDashboard from "../pages/faculty/FacultyDashboard";
+import MyCourses from "../pages/faculty/MyCourses";
+import MyStudents from "../pages/faculty/MyStudents";
 import { generateRoutes } from "../utils/routesGenerator";
 import { sideNavbarItemsGenerator } from "../utils/sideNavbarItemsGenerator";
 
@@ -9,28 +9,18 @@ const facultyPaths = [
   {
     name: "Dashboard",
     path: "dashboard",
-    element: <AdminDashboard />,
+    element: <FacultyDashboard />,
   },
-  {
-    name: "Dropdown",
-    children: [
-      {
-        name: "Create Student",
-        path: "create-student",
-        element: <CreateStudent />,
-      },
-      {
-        name: "Create Admin",
-        path: "create-admin",
-        element: <CreateAdmin />,
-      },
-      {
-        name: "Create Faculty",
-        path: "create-faculty",
-        element: <CreateFaculty />,
-      },
-    ],
-  },
+ {
+  name:"My Courses",
+  path:"/faculty/courses",
+  element:<MyCourses/>
+ },
+ {
+  
+  path:"/faculty/:registerSemesterId/:courseId",
+  element:<MyStudents/>
+ }
 ];
 
 export const FacultyRoutes = generateRoutes(facultyPaths);

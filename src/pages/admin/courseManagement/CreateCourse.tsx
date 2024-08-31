@@ -39,7 +39,6 @@ const CreateCourse = () => {
       <Col span={6}>
         <PHForm
           onSubmit={onSubmit}
-          // resolver={zodResolver(createAcademicSemesterSchema)}
         >
           <PHInput label="Title" name="title" />
           <PHInput label="Prefix" name="prefix" />

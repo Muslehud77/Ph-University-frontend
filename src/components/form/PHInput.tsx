@@ -6,9 +6,10 @@ type TPHInput = {
   name: string;
   className?: string;
   label?: string;
+  defaultValue?:string|number
 };
 
-const PHInput = ({ type, name, className, label }: TPHInput) => {
+const PHInput = ({ type, name, className, label, defaultValue }: TPHInput) => {
   return (
     <div style={{ marginBottom: "20px" }}>
       <Controller
@@ -16,6 +17,7 @@ const PHInput = ({ type, name, className, label }: TPHInput) => {
         render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
             <Input
+              defaultValue={defaultValue}
               className={className}
               type={type ? type : "text"}
               id={name}

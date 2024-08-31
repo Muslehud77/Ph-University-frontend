@@ -1,4 +1,5 @@
 import { TAcademicSemester } from "./academicManagement.type";
+import { TStudent } from "./userManagement.type";
 
 export type TRegisteredSemester = {
   _id: string;
@@ -63,4 +64,31 @@ export type TStudentOfferedCourse = {
   completedCourseIds: string[];
   isPreRequisitesFulFilled: boolean;
   isAlreadyEnrolled: boolean;
+}
+
+
+export type TEnrolledCourse= {
+  _id: string;
+  semesterRegistration: TRegisteredSemester | string;
+  academicSemester: string;
+  academicFaculty: string;
+  offeredCourse: string | TOfferedCourse;
+  academicDepartment: string;
+  course: string;
+  faculty: string;
+  student: string | TStudent;
+  isEnrolled: boolean;
+  courseMarks: TCourseMarks;
+  grade: string;
+  gradePoints: number;
+  isCompleted: boolean;
+  __v: number;
+}
+
+export type TCourseMarks= {
+  classTest1: number;
+  midTerm: number;
+  classTest2: number;
+  finalTerm: number;
+  _id: string;
 }

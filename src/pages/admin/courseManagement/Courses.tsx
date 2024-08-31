@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Pagination, Table } from "antd";
-import { useGetAllAcademicDepartmentsQuery } from "../../../redux/features/admin/academicManagement.api";
 
 import type { TableColumnsType } from "antd";
-import { TAcademicDepartment } from "../../../types/academicManagement.type";
 import { useState } from "react";
 import { TQueryParams } from "../../../types/global.type";
 import { TCourse } from "../../../types";
